@@ -2,7 +2,6 @@
 
 from datetime import datetime
 from uuid import uuid4
-import models
 
 class BaseModel:
     """BaseModel for AirBnB project"""
@@ -21,7 +20,6 @@ class BaseModel:
     def save(self):
         """Update updated_at with the current datetime."""
         self.updated_at = datetime.now()
-        models.storage.save()
 
     def to_dict(self):
         """Return the dictionary of the BaseModel instance.
@@ -30,9 +28,9 @@ class BaseModel:
         the class name of the object.
         """
         my_dict = self.__dict__.copy()
+        my_dict["__class__"] = self.__class__.__name__
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
-        my_dict["__class__"] = self.__class__.__name__
         return my_dict
 
     def __str__(self):
