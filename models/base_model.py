@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from uuid import uuid4
+import models
 
 class BaseModel:
     """BaseModel for AirBnB project"""
@@ -29,6 +30,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def save(self):
         """Update updated_at with the current datetime."""
