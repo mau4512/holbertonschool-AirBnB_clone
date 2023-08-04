@@ -5,7 +5,7 @@ from uuid import uuid4
 
 class BaseModel:
     """BaseModel for AirBnB project"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel.
 
         Args:
@@ -13,9 +13,23 @@ class BaseModel:
             **kwargs (dict): Key/value pairs of attributes.
         """
         tform = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if len(kwargs) is not 0:
+            for key, value in kwargs.items():
+                if key == "id":
+                    self.id = kwargs.get(key)
+                if key == "created_at":
+                    self.created_at = datetime.strptime(kwargs.get(key),tform)
+                if key == "updated_at":
+                    self.updated_at = datetime.strptime(kwargs.get(key),tform)
+                if key == "my_number":
+                    self.my_number = kwargs.get(key)
+                if key == "name":
+                    self.name = kwargs.get(key)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def save(self):
         """Update updated_at with the current datetime."""
