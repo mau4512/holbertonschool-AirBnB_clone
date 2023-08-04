@@ -13,7 +13,7 @@ class BaseModel:
             **kwargs (dict): Key/value pairs of attributes.
         """
         tform = "%Y-%m-%dT%H:%M:%S.%f"
-        if len(kwargs) is not 0:
+        if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == "id":
                     self.id = kwargs.get(key)
